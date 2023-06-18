@@ -92,3 +92,44 @@ h3{
 .incorrect{
     background: #ff9393;
 }
+/* Responsive*/
+@media screen and (max-width: 600px) {
+    .app {
+      padding: 10px;
+      width: 65%;
+    }
+    
+    .designedBy {
+      margin-bottom: 10px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    
+    .quiz {
+      padding: 10px;
+    }
+    
+    #question {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    
+    #answer-buttons {
+      grid-gap: 5px;
+      margin-bottom: 10px;
+    }
+    
+    .btn {
+      padding: 8px;
+      font-size: 14px;
+    }
+    
+    #next-btn {
+      padding: 8px;
+      font-size: 14px;
+      min-width: 200px;
+    }
+  }
