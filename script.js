@@ -172,20 +172,26 @@ const soruBasligi = document.getElementById("question");
 const cevapButon = document.getElementById("answer-buttons");
 const sonrakiButon = document.getElementById("next-btn");
 
+
 let gecerliSoruIndeksi = 0;
 let score = 0;
+
+
 
 function startQuiz(){
     gecerliSoruIndeksi = 0;
     score = 0;
     sonrakiButon.innerHTML = "Sonraki";
+    resetState();
     showQuestion();
+    
 }
 function showQuestion(){
     resetState();
     let gecerliSoru = sorular[gecerliSoruIndeksi];
     let questionNo = gecerliSoruIndeksi + 1;
     soruBasligi.innerHTML = questionNo + ". " + gecerliSoru.soru;
+    
 
     gecerliSoru.cevap.forEach(cevap => {
         const button = document.createElement("button");
@@ -194,16 +200,22 @@ function showQuestion(){
         cevapButon.appendChild(button);
         if(cevap.dogruluk){
             button.dataset.dogruluk = cevap.dogruluk;
+            
         }
         button.addEventListener("click", selectAnswer);
+        
+        
         
     });
 }
 
 function resetState() {
     sonrakiButon.style.display = "none";
+    
+    
     while(cevapButon.firstChild){
         cevapButon.removeChild(cevapButon.firstChild);
+       
     }
 }
 
@@ -215,6 +227,8 @@ function selectAnswer(e){
         score++;
     }else{
         selectedBtn.classList.add("incorrect");
+        
+        
     }
     Array.from(cevapButon.children).forEach(button => {
         if(button.dataset.dogruluk === "true"){
@@ -223,13 +237,26 @@ function selectAnswer(e){
         button.disabled = true;
     });
     sonrakiButon.style.display = "block";
+    sonrakiButon.style.textTransform = "uppercase";
+    
+    
+    
+    
+    
+
 }
 
 function showScore(){
     resetState();
-    soruBasligi.innerHTML = `${sorular.length} sorudan ${score} soruyu doğru cevapladın!`;
+    const minutes = Math.floor(totalTime / 60);
+    const seconds = totalTime % 60;
+    soruBasligi.innerHTML = `${sorular.length} sorudan ${score} soruyu ${minutes}:${seconds.toString().padStart(2, "0")} sürede doğru cevapladın!  `;
     sonrakiButon.innerHTML = "Tekrar çöz";
     sonrakiButon.style.display = "block";
+    stopTimer();
+    
+    
+    
 }
 
 function handleNextButton(){
@@ -238,7 +265,9 @@ function handleNextButton(){
         showQuestion();
     }else{
         showScore();
+        totalTime = -1; 
     }
+    
 }
 
 sonrakiButon.addEventListener("click", () =>{
@@ -246,6 +275,7 @@ sonrakiButon.addEventListener("click", () =>{
         handleNextButton();
     }else{
         startQuiz();
+        startTimer(); 
     }
 })
 
@@ -259,7 +289,6 @@ cursorImage.onload = function() {
   document.body.style.cursor = 'url("' + cursorImage.src + '") ' + (cursorWidth / 2) + ' ' + (cursorHeight / 2) + ', auto';
 };
 
-// Sayfayı yenilemeyi engelleme
 window.addEventListener("beforeunload", function (event) {
     event.preventDefault();
     event.returnValue = "";
@@ -273,6 +302,32 @@ window.addEventListener("beforeunload", function (event) {
       return null;
     }
   });
+
+const timerElement = document.getElementById("timer");
+let totalTime = 0;
+let timerInterval;
+
+function startTimer() {
+    totalTime = -1;
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+  totalTime++;
+  const minutes = Math.floor(totalTime / 60);
+  const seconds = totalTime % 60;
+  timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+
+
+document.addEventListener("DOMContentLoaded", startTimer);
+
+
 
   
   
