@@ -75,7 +75,7 @@ const sorular = [
         soru: "Romen Rakamında Hangi Sayı Yoktur?",
         cevap: [
             { text: "0", dogruluk: true},
-            { text: "31", dogruluk: false},
+            { text: "10", dogruluk: false},
             { text: "100", dogruluk: false},
             { text: "1000", dogruluk: false},
         ]
@@ -131,7 +131,7 @@ const sorular = [
         soru: "Bir Sebepten Dolayı Tek Kulağına Küpe Takan Osmanlı Padişahı Kimdir?",
         cevap: [
             { text: "Kanuni Sultan Süleyman", dogruluk: false},
-            { text: "Gay Yavuz Sultan Selim", dogruluk: true},
+            { text: "Yavuz Sultan Selim", dogruluk: true},
             { text: "Orhan Bey", dogruluk: false},
             { text: "Fatih Sultan Selim", dogruluk: false},
             { text: "II. Abdülhamit", dogruluk: false},
